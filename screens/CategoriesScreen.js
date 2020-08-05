@@ -2,29 +2,27 @@ import React from 'react'
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 import Colors from '../constants/Colors';
+import CategotyGridTitle from '../components/CategoryGridTile'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
+
 
 
 
 
 const CategoriesScreen = props => {
     const renderGridItem = (itemData) => {
-        return (
-            <TouchableOpacity style={styles.gridItem} onPress={() => {
+        return <CategotyGridTitle title={itemData.item.title}
+            color={itemData.item.color}
+            onSelect={() => {
                 props.navigation.navigate({
                     routeName: 'CategoryMeals',
-                    params:{
+                    params: {
                         categoryId: itemData.item.id
                     }
                 })
-            }} >
-                <View >
-                    <Text>
-                        {itemData.item.title}
-                    </Text>
-                </View>
-            </TouchableOpacity>
-        );
-    }
+            }} />;
+    };
     return (
         <FlatList data={CATEGORIES}
             renderItem={renderGridItem}
@@ -38,15 +36,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    gridItem: {
-        flex: 1,
-        margin: 15,
-        height: 100,
-    }
 });
 
-CategoriesScreen.navigationOptions = {
-    headerTitle: 'Meal Categories'
+CategoriesScreen.navigationOptions = (navData) => {
+    return {
+        headerTitle: 'Categories Screen',
+        headerLeft: <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item title='Menu' iconName='ios-menu' onPress={() => {
+                navData.navigation.toggleDrawer();
+            }} />
+        </HeaderButtons>
+    }
 };
+
 
 export default CategoriesScreen;
