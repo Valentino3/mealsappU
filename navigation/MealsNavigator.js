@@ -27,6 +27,9 @@ const MealsNavigator = createStackNavigator({
                 backgroundColor: Colors.primaryColor
             },
             headerTintColor: 'black',
+            headerTitleStyle: {
+                fontFamily: 'open-sans-bold'
+            },
         }
     }
 );
@@ -40,7 +43,13 @@ const FavNavigator = createStackNavigator({
             headerStyle: {
                 backgroundColor: Colors.primaryColor
             },
+            headerTitleStyle: {
+                fontFamily: 'open-sans-bold'
+            },
             headerTintColor: 'black',
+            headerBackTitleStyle:{
+                fontFamily: 'opens-sans-bold'
+            },
         }
     });
 
@@ -71,15 +80,29 @@ const MealsFavTabNavigator = createBottomTabNavigator({
 }, {
     tabBarOptions: {
         activeTintColor: Colors.accentColor,
+        labelStyle:{
+            fontFamily: 'open-sans-bold'
+        },
     },
 });
 const FiltersNavigator = createStackNavigator({
     Filters: FilterScreen
-});
+},
+
+);
 
 const MainNavigator = createDrawerNavigator({
     Meals: MealsFavTabNavigator,
     Filters: FiltersNavigator
-});
+},
+    {
+        contentOptions: {
+            activeTintColor: Colors.accentColor,
+            labelStyle: {
+                fontFamily: 'open-sans-bold'
+            }
+        }
+    }
+);
 
 export default createAppContainer(MainNavigator);
